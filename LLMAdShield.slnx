@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="src/LLMAdShield.Core/LLMAdShield.Core.csproj" />
+  <Project Path="src/LLMAdShield.Windows/LLMAdShield.Windows.csproj" />
+  <Project Path="tests/LLMAdShield.Core.Tests/LLMAdShield.Core.Tests.csproj" />
+  <Project Path="tests/LLMAdShield.Windows.Tests/LLMAdShield.Windows.Tests.csproj" />
+</Solution>

@@ -1,0 +1,162 @@
+<Window x:Class="LLMAdShield.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LLM AdShield" Width="1000" Height="750" MinWidth="880" MinHeight="670"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource AppBackground}"
+        Foreground="{StaticResource AppForeground}">
+    <Grid Margin="28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="18" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="18" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="18" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Text="LLM AdShield" FontSize="30" FontWeight="SemiBold" />
+                <TextBlock Text="Cloud-assisted commercial muting for a selected Windows player"
+                           Foreground="{StaticResource MutedForeground}" Margin="0,5,0,0" />
+            </StackPanel>
+            <Border Grid.Column="1" Background="#E2F4EC" BorderBrush="#9BCDB9" BorderThickness="1"
+                    CornerRadius="16" Padding="14,7" VerticalAlignment="Center">
+                <TextBlock x:Name="RunStateText" Text="Stopped" Foreground="{StaticResource PrimaryBrush}" FontWeight="SemiBold" />
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="2" Background="{StaticResource PanelBackground}" BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="1" CornerRadius="12" Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="18" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="1. Player window" FontWeight="SemiBold" Margin="0,0,0,8" />
+                    <DockPanel>
+                        <Button x:Name="RefreshWindowsButton" Content="Refresh" DockPanel.Dock="Right" Margin="8,0,0,0" Click="RefreshWindowsButton_Click" />
+                        <ComboBox x:Name="WindowTargetCombo" DisplayMemberPath="DisplayName" MinWidth="300" />
+                    </DockPanel>
+                    <TextBlock Text="Select explicitly. Protected video may appear black and will fail open."
+                               Foreground="{StaticResource MutedForeground}" FontSize="12" Margin="0,8,0,0" />
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="2. Audio session" FontWeight="SemiBold" Margin="0,0,0,8" />
+                    <DockPanel>
+                        <Button x:Name="RefreshAudioButton" Content="Refresh" DockPanel.Dock="Right" Margin="8,0,0,0" Click="RefreshAudioButton_Click" />
+                        <ComboBox x:Name="AudioSessionCombo" DisplayMemberPath="SelectionDisplayName" MinWidth="300" />
+                    </DockPanel>
+                    <TextBlock Text="Only the session you select is muted; master volume is never changed."
+                               Foreground="{StaticResource MutedForeground}" FontSize="12" Margin="0,8,0,0" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.15*" />
+                <ColumnDefinition Width="18" />
+                <ColumnDefinition Width="0.85*" />
+            </Grid.ColumnDefinitions>
+            <Border Background="{StaticResource PanelBackground}" BorderBrush="{StaticResource BorderBrush}"
+                    BorderThickness="1" CornerRadius="12" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="Detection" FontSize="18" FontWeight="SemiBold" />
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,14">
+                        <RadioButton x:Name="ShadowModeRadio" Content="Shadow mode" IsChecked="True" Margin="0,0,22,0" />
+                        <RadioButton x:Name="AutomaticModeRadio" Content="Automatic mute" />
+                    </StackPanel>
+                    <Border Background="{StaticResource InsetBackground}" BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="1" CornerRadius="9" Padding="15">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Last verdict" Foreground="{StaticResource MutedForeground}" />
+                            <TextBlock x:Name="LastVerdictText" Grid.Column="1" Text="&#x2014;" FontWeight="SemiBold" />
+                            <TextBlock Grid.Row="1" Text="Confidence" Foreground="{StaticResource MutedForeground}" Margin="0,12,0,0" />
+                            <TextBlock x:Name="ConfidenceText" Grid.Row="1" Grid.Column="1" Text="&#x2014;" Margin="0,12,0,0" />
+                            <TextBlock Grid.Row="2" Text="Latency" Foreground="{StaticResource MutedForeground}" Margin="0,12,0,0" />
+                            <TextBlock x:Name="LatencyText" Grid.Row="2" Grid.Column="1" Text="&#x2014;" Margin="0,12,0,0" />
+                            <TextBlock Grid.Row="3" Text="Session spend" Foreground="{StaticResource MutedForeground}" Margin="0,12,0,0" />
+                            <TextBlock x:Name="SpendText" Grid.Row="3" Grid.Column="1" Text="$0.00 / $10.00" Margin="0,12,0,0" />
+                        </Grid>
+                    </Border>
+                    <TextBlock x:Name="BudgetWarningText"
+                               Text="API budget warning: the run is approaching its hard stop."
+                               Foreground="#805100" FontWeight="SemiBold" Visibility="Collapsed" Margin="0,12,0,0" />
+                    <TextBlock x:Name="StatusDetailText" Text="Choose a player window and audio session, then start in shadow mode."
+                               Foreground="{StaticResource MutedForeground}" Margin="0,14,0,0" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2" Background="{StaticResource PanelBackground}" BorderBrush="{StaticResource BorderBrush}"
+                    BorderThickness="1" CornerRadius="12" Padding="20">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Margin="0,0,8,0">
+                        <TextBlock Text="Provider settings" FontSize="18" FontWeight="SemiBold" />
+                        <TextBlock Margin="0,10,0,0" Foreground="{StaticResource MutedForeground}" FontSize="12"
+                                   Text="Choose which API credits this device uses. Saving never sends a test request." />
+                        <TextBlock Text="Provider" FontWeight="SemiBold" Margin="0,14,0,6" />
+                        <ComboBox x:Name="ProviderCombo" DisplayMemberPath="DisplayName"
+                                  AutomationProperties.Name="LLM provider"
+                                  SelectionChanged="ProviderCombo_SelectionChanged" />
+                        <TextBlock Text="API key" FontWeight="SemiBold" Margin="0,12,0,6" />
+                        <PasswordBox x:Name="ProviderApiKeyBox" PasswordChar="&#x25CF;"
+                                     AutomationProperties.Name="Provider API key" />
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <Button x:Name="SaveProviderKeyButton" Content="Save key" Click="SaveProviderKeyButton_Click" />
+                            <Button x:Name="RemoveProviderKeyButton" Content="Remove saved key" Click="RemoveProviderKeyButton_Click" />
+                        </StackPanel>
+                        <TextBlock x:Name="ProviderKeyStatusText" Margin="0,6,0,0"
+                                   Foreground="{StaticResource MutedForeground}" FontSize="12"
+                                   Text="No saved key. OpenAI can still use OPENAI_API_KEY." />
+
+                        <Separator Margin="0,18,0,16" Background="{StaticResource BorderBrush}" />
+                        <TextBlock Text="Privacy &amp; controls" FontSize="18" FontWeight="SemiBold" />
+                        <TextBlock x:Name="ProviderPrivacyText" Margin="0,12,0,0" Foreground="{StaticResource MutedForeground}"
+                                   Text="Three resized frames from the selected player are sent to the selected provider per decision. Locally, frames remain in RAM and are never written to disk; audio is never uploaded." />
+                        <TextBlock x:Name="ProviderRetentionText" Margin="0,10,0,0" Foreground="{StaticResource MutedForeground}" FontSize="12"
+                                   Text="Provider retention and data-control terms apply to requests." />
+                        <Border Background="#FFF6DF" BorderBrush="#E2B552" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,16,0,0">
+                            <TextBlock Foreground="#744700" Text="Emergency unmute restores audio and pauses automation until you manually resume." />
+                        </Border>
+                        <TextBlock Text="Manual annotations" FontWeight="SemiBold" Margin="0,18,0,6" />
+                        <TextBlock Foreground="{StaticResource MutedForeground}"
+                                   Text="Ctrl+Alt+A &#x2014; mark current segment as ad/promo&#x0a;Ctrl+Alt+P &#x2014; mark current segment as program&#x0a;Ctrl+Alt+U &#x2014; emergency unmute" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="StartButton" Content="Start" Background="#D6F2E7" Foreground="#064C3B" BorderBrush="#79C7AA" Click="StartButton_Click" />
+                <Button x:Name="PauseButton" Content="Pause" IsEnabled="False" Click="PauseButton_Click" />
+                <Button x:Name="EmergencyButton" Content="Emergency unmute" Background="#FCE4E1" Foreground="#7A231E" BorderBrush="#E2A19B" Click="EmergencyButton_Click" />
+            </StackPanel>
+            <TextBlock x:Name="ProviderModelsText" Grid.Column="1" VerticalAlignment="Center" Foreground="{StaticResource MutedForeground}"
+                       Text="Primary: gpt-5.6-luna  &#x2022;  Escalation: gpt-5.6-terra" />
+        </Grid>
+    </Grid>
+</Window>

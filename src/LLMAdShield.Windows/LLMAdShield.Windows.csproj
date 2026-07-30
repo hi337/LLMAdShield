@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.22621.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>LLMAdShield</AssemblyName>
+    <RootNamespace>LLMAdShield.Windows</RootNamespace>
+    <AssemblyTitle>LLM AdShield</AssemblyTitle>
+    <Product>LLM AdShield</Product>
+    <Description>Cloud-assisted commercial detection, overlay, and per-session muting for Windows.</Description>
+    <Authors>LLM AdShield contributors</Authors>
+    <Version>0.2.0</Version>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x64</Platforms>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>false</PublishSingleFile>
+    <PublishReadyToRun>false</PublishReadyToRun>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LLMAdShield.Core\LLMAdShield.Core.csproj" />
+  </ItemGroup>
+</Project>

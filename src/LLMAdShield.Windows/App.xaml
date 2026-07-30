@@ -1,0 +1,66 @@
+<Application x:Class="LLMAdShield.Windows.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             ShutdownMode="OnExplicitShutdown">
+    <Application.Resources>
+        <SolidColorBrush x:Key="AppBackground" Color="#F4F7FB" />
+        <SolidColorBrush x:Key="AppForeground" Color="#172033" />
+        <SolidColorBrush x:Key="PanelBackground" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="InsetBackground" Color="#F4F7FB" />
+        <SolidColorBrush x:Key="BorderBrush" Color="#D3DAE6" />
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#08785A" />
+        <SolidColorBrush x:Key="MutedForeground" Color="#58677A" />
+        <SolidColorBrush x:Key="ControlBackground" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="ControlBorder" Color="#AEB9C8" />
+
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="{StaticResource AppBackground}" />
+            <Setter Property="Foreground" Value="{StaticResource AppForeground}" />
+            <Setter Property="FontFamily" Value="Segoe UI Variable Text, Segoe UI" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="16,9" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="Background" Value="#E9EEF5" />
+            <Setter Property="Foreground" Value="{StaticResource AppForeground}" />
+            <Setter Property="BorderBrush" Value="{StaticResource ControlBorder}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Padding" Value="9,7" />
+            <Setter Property="Background" Value="{StaticResource ControlBackground}" />
+            <Setter Property="Foreground" Value="{StaticResource AppForeground}" />
+            <Setter Property="BorderBrush" Value="{StaticResource ControlBorder}" />
+        </Style>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Padding" Value="10,7" />
+            <Setter Property="Background" Value="{StaticResource ControlBackground}" />
+            <Setter Property="Foreground" Value="{StaticResource AppForeground}" />
+            <Style.Triggers>
+                <Trigger Property="IsHighlighted" Value="True">
+                    <Setter Property="Background" Value="#DDECF7" />
+                    <Setter Property="Foreground" Value="#10243A" />
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#CBE5DA" />
+                    <Setter Property="Foreground" Value="#0A3A2E" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="Padding" Value="9,7" />
+            <Setter Property="Background" Value="{StaticResource ControlBackground}" />
+            <Setter Property="Foreground" Value="{StaticResource AppForeground}" />
+            <Setter Property="BorderBrush" Value="{StaticResource ControlBorder}" />
+            <Setter Property="CaretBrush" Value="{StaticResource AppForeground}" />
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="Foreground" Value="{StaticResource AppForeground}" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource AppForeground}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </Application.Resources>
+</Application>

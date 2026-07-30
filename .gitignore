@@ -1,0 +1,41 @@
+# .NET
+[Bb]in/
+[Oo]bj/
+[Aa]rtifacts/
+[Tt]est[Rr]esults/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+
+# IDEs
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Secrets and signing material
+.env
+.env.*
+!.env.example
+secrets.properties
+appsettings.local.json
+*.pfx
+*.p12
+*.key
+*.pem
+*.dpapi
+
+# Runtime-only data
+*.jsonl
+audio-mute-recovery.json
+
+# Published packages
+publish/
+dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini

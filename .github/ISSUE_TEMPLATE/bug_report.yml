@@ -1,0 +1,64 @@
+name: Bug report
+description: Report a reproducible LLM AdShield problem without sharing private media or credentials.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not attach API keys, signing keys, IPTV credentials, captured frames, recordings, transcripts, or unredacted logs. Report security issues privately using SECURITY.md.
+  - type: input
+    id: version
+    attributes:
+      label: LLM AdShield version or commit
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and OS build
+      description: Include the exact Windows edition, version, and OS build.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Capture or target selection
+        - Audio session or restoration
+        - Overlay
+        - OpenAI provider
+        - Anthropic provider
+        - Detection policy
+        - User interface or tray
+        - Build or packaging
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Use synthetic or non-sensitive content descriptions.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Privacy check
+      options:
+        - label: I removed secrets, captured frames, logs containing personal data, provider payloads, and IPTV credentials.
+          required: true

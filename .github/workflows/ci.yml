@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows-dotnet:
+    name: Windows .NET tests
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Restore
+        run: dotnet restore LLMAdShield.slnx
+      - name: Build
+        run: dotnet build LLMAdShield.slnx --configuration Release --no-restore
+      - name: Test
+        run: dotnet test LLMAdShield.slnx --configuration Release --no-build
+      - name: Publish smoke test
+        run: >-
+          dotnet publish src/LLMAdShield.Windows/LLMAdShield.Windows.csproj
+          --configuration Release
+          --runtime win-x64
+          --self-contained true
+          --no-restore
+          --output artifacts/ci-publish/win-x64
